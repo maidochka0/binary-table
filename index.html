@@ -116,7 +116,7 @@
                     return response.text();
                 })
                 .then(text => {
-                    const markdownHTML = marked(text);
+                    const markdownHTML = "<hr><p>далее, мое резюме</p><hr>" + marked(text);
 
                     const outputElement = document.getElementById('markdownOutput');
 
