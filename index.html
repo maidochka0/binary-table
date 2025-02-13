@@ -58,11 +58,11 @@
 
                         if (adjacentOnes > 2) {
                             count++;
-                            table.rows[i].cells[j].style.backgroundColor = 'lightgreen';
                         }
                     }
                 }
             }
+            alert(count);
 
             resultDisplay.textContent = `Answer: ${count}`;
         }
@@ -87,6 +87,7 @@
             table.innerHTML = '';
             resultDisplay.textContent = 'Answer: 0';
             createTable();
+            highlightCells()
         }
 
         window.onload = function() {
