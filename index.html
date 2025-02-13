@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Binary Table</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/2.1.3/marked.min.js"></script>
 </head>
 <body>
 
@@ -16,6 +17,8 @@
         <table id="binaryTable" style="border-collapse: collapse; margin: 20px 0;"></table>
         <div id="result" style="margin-left: 20px; font-size: 20px;">Answer: 0</div>
     </div>
+
+    <div id="markdownOutput"></div>
 
     <script>
         const rows = 5;
@@ -86,7 +89,25 @@
             createTable();
         }
 
-        window.onload = createTable;
+        window.onload = function() {
+            createTable();
+            displayMarkdown();
+        };
+
+        function displayMarkdown() {
+            const markdownText = `
+# readme
+
+## тз
+Создать примитивную HTML станицу. На странице расположите три кнопки. И таблицу 5*5 со случайно расставленными цифрами 0 или 1. При нажатии на вторую кнопку выдать всплывающим сообщением надпись, сколько ячеек с нулями имеют рядом с собой больше двух ячеек с единицей. Рядом считать сверху, снизу слева или справа. При нажатии на любую из кнопок, все ячейки таблицы становятся желтыми.
+
+Обратите внимание на оформления кода, комментарии и т.д. Так вы будете работать в команде и нужно что бы другие члены команды смогли читать ваш код. Так же прошу избегать помощи ИИ, так как его код сразу виден.
+
+## реализация
+комментарии в коде оставлять не стал, но запарился над неймингом, так что код вполне понятный
+            `;
+            document.getElementById('markdownOutput').innerHTML = marked(markdownText);
+        }
     </script>
 
 </body>
