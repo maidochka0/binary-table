@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Table</title>
+</head>
+<body>
+
+    <h1>Binary Table</h1>
+    <button onclick="highlightCells()">Click me!</button>
+    <button onclick="countZeros()">Count zeros</button>
+    <button onclick="resetTable()">Reset table</button>
+
+    <div style="display: flex; align-items: center;">
+        <table id="binaryTable" style="border-collapse: collapse; margin: 20px 0;"></table>
+        <div id="result" style="margin-left: 20px; font-size: 20px;">Answer: 0</div>
+    </div>
+
+    <script>
+        const rows = 5;
+        const cols = 5;
+        let table = document.getElementById('binaryTable');
+        let resultDisplay = document.getElementById('result');
+
+        function createTable() {
+            for (let i = 0; i < rows; i++) {
+                let row = table.insertRow();
+                for (let j = 0; j < cols; j++) {
+                    let cell = row.insertCell();
+                    cell.textContent = Math.round(Math.random());
+                    cell.style.width = '40px';
+                    cell.style.height = '40px';
+                    cell.style.textAlign = 'center';
+                    cell.style.border = '1px solid #000';
+                    cell.style.fontSize = '20px';
+                }
+            }
+        }
+
+        function countZeros() {
+            let count = 0;
+            resetCellColors();
+            highlightCells(); // Highlight cells in yellow
+
+            for (let i = 0; i < rows; i++) {
+                for (let j = 0; j < cols; j++) {
+                    if (table.rows[i].cells[j].textContent === '0') {
+                        let adjacentOnes = 0;
+
+                        if (i > 0 && table.rows[i - 1].cells[j].textContent === '1') adjacentOnes++;
+                        if (i < rows - 1 && table.rows[i + 1].cells[j].textContent === '1') adjacentOnes++;
+                        if (j > 0 && table.rows[i].cells[j - 1].textContent === '1') adjacentOnes++;
+                        if (j < cols - 1 && table.rows[i].cells[j + 1].textContent === '1') adjacentOnes++;
+
+                        if (adjacentOnes > 2) {
+                            count++;
+                            table.rows[i].cells[j].style.backgroundColor = 'lightgreen';
+                        }
+                    }
+                }
+            }
+
+            resultDisplay.textContent = `Answer: ${count}`;
+        }
+
+        function resetCellColors() {
+            for (let i = 0; i < rows; i++) {
+                for (let j = 0; j < cols; j++) {
+                    table.rows[i].cells[j].style.backgroundColor = '';
+                }
+            }
+        }
+
+        function highlightCells() {
+            for (let i = 0; i < rows; i++) {
+                for (let j = 0; j < cols; j++) {
+                    table.rows[i].cells[j].style.backgroundColor = 'yellow';
+                }
+            }
+        }
+
+        function resetTable() {
+            table.innerHTML = '';
+            resultDisplay.textContent = 'Answer: 0';
+            createTable();
+        }
+
+        window.onload = createTable;
+    </script>
+
+</body>
+</html>
